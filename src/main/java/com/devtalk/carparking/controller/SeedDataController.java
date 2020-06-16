@@ -12,6 +12,7 @@ import java.util.List;
 public class SeedDataController {
     private final SeedDataService seedDataService;
 
+
     public SeedDataController(SeedDataService seedDataService) {
         this.seedDataService = seedDataService;
     }
