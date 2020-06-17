@@ -35,11 +35,5 @@ public class SeedDataController {
         return new ResponseEntity<>("StateEntity added successfully", HttpStatus.CREATED);
     }
 
-    @PostMapping(value = "states", consumes = "application/json")
-    public ResponseEntity<String> addStates(@RequestBody List<String> states) {
-        seedDataService.addStates(states);
-        return new ResponseEntity<>("StateEntity added successfully", HttpStatus.CREATED);
-    }
-
 
 }
