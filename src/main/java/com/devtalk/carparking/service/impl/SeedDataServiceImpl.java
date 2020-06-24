@@ -1,6 +1,7 @@
 package com.devtalk.carparking.service.impl;
 
 import com.devtalk.carparking.dao.entity.CityEntity;
+import com.devtalk.carparking.dao.entity.StateEntity;
 import com.devtalk.carparking.dao.repository.CityRepository;
 import com.devtalk.carparking.dao.repository.StateRepository;
 import com.devtalk.carparking.model.seeddata.City;
@@ -46,7 +47,18 @@ public class SeedDataServiceImpl implements SeedDataService {
 
         }).flatMap(List::stream).collect(Collectors.toList());
 
-        List<CityEntity> cityEnitities = cityList.stream().map(CityEntity::getCityEntityFromCity).collect(Collectors.toList());
+        List<String> stateNames = states.stream().map(State::getStateName).collect(Collectors.toList());
+        List<StateEntity> stateEntities= stateRepository.findAllByNameIn(stateNames);
+        //List<StateEntity> stateEntities= stateRepository.findAll();
+
+
+        List<CityEntity> cityEnitities = cityList.stream().map(city -> {
+            CityEntity cityEntityFromCity = CityEntity.getCityEntityFromCity(city);
+//            cityEntityFromCity.setStateEntity(stateEntities.stream().filter(stateEntity ->
+//                    stateEntity.getName().equals(city.getState().getStateName())).findFirst().get());
+            return cityEntityFromCity;
+        }).collect(Collectors.toList());
+
 
         cityRepository.saveAll(cityEnitities);
 
