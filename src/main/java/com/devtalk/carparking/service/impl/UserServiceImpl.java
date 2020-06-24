@@ -5,6 +5,7 @@ import com.devtalk.carparking.dao.repository.UserDetailsRepository;
 import com.devtalk.carparking.model.User;
 import com.devtalk.carparking.service.UserService;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserDetailsRepository userDetailsRepository;
 
+    @Autowired
     public UserServiceImpl(UserDetailsRepository userDetailsRepository) {
         this.userDetailsRepository = userDetailsRepository;
     }
