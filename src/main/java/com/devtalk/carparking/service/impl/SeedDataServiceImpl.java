@@ -1,5 +1,6 @@
 package com.devtalk.carparking.service.impl;
 
+import com.devtalk.carparking.dao.entity.CityEntity;
 import com.devtalk.carparking.dao.repository.CityRepository;
 import com.devtalk.carparking.dao.repository.StateRepository;
 import com.devtalk.carparking.model.seeddata.City;
@@ -33,17 +34,21 @@ public class SeedDataServiceImpl implements SeedDataService {
 
     @Override
     public void addCities(List<State> states) {
-        states.stream().map(state -> {
+        List<City> cityList = states.stream().map(state -> {
 
             return state.getCitiNames().stream().map(s -> {
-                City city= new City();
+                City city = new City();
                 city.setName(s);
                 city.setState(state);
                 return city;
             }).collect(Collectors.toList());
 
 
-        }).collect(Collectors.toList());
+        }).flatMap(List::stream).collect(Collectors.toList());
+
+        List<CityEntity> cityEnitities = cityList.stream().map(CityEntity::getCityEntityFromCity).collect(Collectors.toList());
+
+        cityRepository.saveAll(cityEnitities);
 
 
     }
