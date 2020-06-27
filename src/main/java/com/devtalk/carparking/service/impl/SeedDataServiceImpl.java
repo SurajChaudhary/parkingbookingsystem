@@ -1,9 +1,9 @@
 package com.devtalk.carparking.service.impl;
 
-import com.devtalk.carparking.dao.entity.CityEntity;
-import com.devtalk.carparking.dao.entity.StateEntity;
-import com.devtalk.carparking.dao.repository.CityRepository;
-import com.devtalk.carparking.dao.repository.StateRepository;
+import com.devtalk.carparking.dataaccess.entity.CityEntity;
+import com.devtalk.carparking.dataaccess.entity.StateEntity;
+import com.devtalk.carparking.dataaccess.repository.CityRepository;
+import com.devtalk.carparking.dataaccess.repository.StateRepository;
 import com.devtalk.carparking.model.seeddata.City;
 import com.devtalk.carparking.model.seeddata.State;
 import com.devtalk.carparking.service.SeedDataService;

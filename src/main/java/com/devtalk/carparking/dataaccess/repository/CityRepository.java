@@ -1,6 +1,6 @@
-package com.devtalk.carparking.dao.repository;
+package com.devtalk.carparking.dataaccess.repository;
 
-import com.devtalk.carparking.dao.entity.CityEntity;
+import com.devtalk.carparking.dataaccess.entity.CityEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

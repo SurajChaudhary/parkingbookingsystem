@@ -1,6 +1,6 @@
-package com.devtalk.carparking.dao.repository;
+package com.devtalk.carparking.dataaccess.repository;
 
-import com.devtalk.carparking.dao.entity.StateEntity;
+import com.devtalk.carparking.dataaccess.entity.StateEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

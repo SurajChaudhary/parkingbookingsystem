@@ -1,7 +1,7 @@
 package com.devtalk.carparking.service.impl;
 
-import com.devtalk.carparking.dao.entity.UserInfoEntity;
-import com.devtalk.carparking.dao.repository.UserDetailsRepository;
+import com.devtalk.carparking.dataaccess.entity.UserInfoEntity;
+import com.devtalk.carparking.dataaccess.repository.UserDetailsRepository;
 import com.devtalk.carparking.model.User;
 import com.devtalk.carparking.service.UserService;
 import org.apache.commons.collections4.CollectionUtils;

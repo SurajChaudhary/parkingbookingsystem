@@ -1,4 +1,4 @@
-package com.devtalk.carparking.dao.entity;
+package com.devtalk.carparking.dataaccess.entity;
 
 import com.devtalk.carparking.model.User;
 import lombok.Data;

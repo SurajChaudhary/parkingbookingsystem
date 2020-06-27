@@ -1,16 +1,14 @@
 package com.devtalk.carparking.controller;
 
+import com.devtalk.carparking.exception.FacilityNotFoundException;
 import com.devtalk.carparking.model.Facility;
 import com.devtalk.carparking.model.response.FacilityResponse;
 import com.devtalk.carparking.service.FacilityService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -26,8 +24,16 @@ public class FacilityController {
     @GetMapping("/facilities")
     public ResponseEntity<FacilityResponse> getFacilities() {
         List<Facility> facilities = facilityService.getFacilities();
+        if (CollectionUtils.isEmpty(facilities)) {
+            throw new FacilityNotFoundException();
+        }
         FacilityResponse response = new FacilityResponse();
         response.setFacilities(facilities);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    private void FacilityNotFoundExceptionHandler(FacilityNotFoundException facilityNotFoundException) {
     }
 }

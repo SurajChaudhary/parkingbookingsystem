@@ -4,18 +4,20 @@ import com.devtalk.carparking.exception.FacilityNotFoundException;
 import com.devtalk.carparking.model.Facility;
 import com.devtalk.carparking.service.FacilityService;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static org.mockito.BDDMockito.given;
 
@@ -26,11 +28,9 @@ public class TestFacilityController {
     @Autowired
     private MockMvc mockMvc;
 
-    @Mock
+    @MockBean
     private FacilityService facilityService;
 
-    @InjectMocks
-    private FacilityController facilityController;
 
     @Test
     public void test_getFacilities_givingFacilities() throws Exception {
@@ -45,22 +45,48 @@ public class TestFacilityController {
                 // assertion
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("facilities").isNotEmpty());
+        //Todo: verifying internal properties like id and name using jsonPath
     }
 
-    @Test(expected = FacilityNotFoundException.class)
+    @Test
+    public void test_getFacilities_usingMvcResult_givingFacilities() throws Exception {
+        // arrange
+        String url = "/v1/facilities";
+        List<Facility> facilities = getResponse();
+        given(facilityService.getFacilities()).willReturn(facilities);
+
+        // act
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url)).andReturn();
+
+        // assertion
+        String response = mvcResult.getResponse().getContentAsString();
+        String expectedResponse = "{\"facilities\":[{\"id\":101,\"name\":\"p1\",\"address\":\"testAddress\"}]}";
+        Assertions.assertEquals(expectedResponse, response);
+    }
+
+    @Test
     public void test_getFacilities_givingNotFoundException() throws Exception {
         // arrange
         String url = "/v1/facilities";
-        given(facilityService.getFacilities()).willThrow(new FacilityNotFoundException());
+        given(facilityService.getFacilities()).willReturn(null);
 
         // act
-        mockMvc.perform(MockMvcRequestBuilders.get(url))
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url)).andReturn();
 
-                // assertion
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("facilities").isNotEmpty());
-
+        // assertion
+        Assertions.assertEquals(FacilityNotFoundException.class, Objects.requireNonNull(mvcResult.getResolvedException()).getClass());
     }
+
+
+    //Todo: Need to check why @Test(expected=..) is not working
+   /* @Test(expected = FacilityNotFoundException.class)
+    public void test_getFacilities_usingExpected_givingNotFoundException() throws Exception {
+        // arrange
+        String url = "/v1/facilities";
+        given(facilityService.getFacilities()).willReturn(null);
+        // act
+        mockMvc.perform(MockMvcRequestBuilders.get(url));
+    }*/
 
     private List<Facility> getResponse() {
         List<Facility> facilities = new ArrayList<>();
