@@ -8,4 +8,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public interface FacilityRepository extends JpaRepository<FacilityEntity, Integer> {
+    FacilityEntity findByName(String testFacility123);
 }
