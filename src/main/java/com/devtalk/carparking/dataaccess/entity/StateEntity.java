@@ -6,16 +6,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Data
 @Table(name = "STATES")
 @NoArgsConstructor
 @AllArgsConstructor
-public class StateEntity {
+public class StateEntity implements Serializable {
 
     @Id
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "STATE_NAME")

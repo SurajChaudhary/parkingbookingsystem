@@ -31,14 +31,14 @@ public class CityEntity implements Serializable {
         City city = new City();
         city.setId(cityEntity.getId());
         city.setName(cityEntity.getName());
-//        city.setState(StateEntity.getStateFromStateEntity(cityEntity.getStateEntity()));
+        city.setStateName(cityEntity.getStateName());
         return city;
     }
 
     public static CityEntity getCityEntityFromCity(City city){
         CityEntity cityEntity = new CityEntity();
         cityEntity.setName(city.getName());
-  //      cityEntity.setStateEntity(StateEntity.getStateEntityFromStateModel(city.getState()));
+        cityEntity.setStateName(city.getStateName());
         return cityEntity;
     }
 }
