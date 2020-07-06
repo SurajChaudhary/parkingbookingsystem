@@ -1,44 +1,54 @@
 package com.devtalk.carparking.dataaccess.entity;
 
-import com.devtalk.carparking.model.User;
+import com.devtalk.carparking.model.UserInfoDetails;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 @Entity
-@Table(name = "USER_INFO")
+@Table(name = "USER_DETAILS")
 @Data
 @NoArgsConstructor
-public class UserInfoEntity implements Serializable {
-
+@AllArgsConstructor
+public class UserDetailsEntity implements Serializable {
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     @Column(name = "USER_NAME")
     private String userName;
+
     @Column(name = "EMAIL_ID")
     private String emailId;
+
     @Column(name = "PHONE_NUMBER")
-    private BigDecimal phoneNumber;
+    private long phoneNumber;
+
     @Column(name = "FIRST_NAME")
     private String firstName;
+
     @Column(name = "LAST_NAME")
     private String lastName;
+
     @Column(name = "ADDRESS")
     private String address;
     @Column(name = "LONGITUDE")
     private String longitude;
+
     @Column(name = "LATITUDE")
     private String latitude;
+
     @Column(name = "DRIVING_LICENSE_NUMBER")
-    private String driverLicenseNumber;
+    private String drivingLicenseNumber;
+
     @Column(name = "AADHAR_NUMBER")
-    private String aadharCardNumber;
+    private String aadharNumber;
+
     @Column(name = "DRIVING_LICENSE_IMG")
     private byte[] drivingLicenseImage;
     @Column(name = "AADHAR_IMAGE")
@@ -46,8 +56,8 @@ public class UserInfoEntity implements Serializable {
     @Column(name = "USER_IMAGE")
     private byte[] userImage;
 
-    public User getCurrentUser() {
-        User user = new User();
+    public UserInfoDetails getCurrentUser() {
+        UserInfoDetails user = new UserInfoDetails();
         user.setUserName(this.getUserName());
         user.setEmailId(this.getEmailId());
         user.setPhoneNumber(this.getPhoneNumber());
@@ -56,8 +66,8 @@ public class UserInfoEntity implements Serializable {
         user.setAddress(this.getAddress());
         user.setLongitude(this.getLongitude());
         user.setLatitude(this.getLatitude());
-        user.setDrivingLicenseNumber(this.getDriverLicenseNumber());
-        user.setAadharNumber(this.getAadharCardNumber());
+        user.setDrivingLicenseNumber(this.getDrivingLicenseNumber());
+        user.setAadharNumber(this.getAadharNumber());
         user.setDrivingLicenseImage(this.getDrivingLicenseImage());
         user.setAadharCardImage(this.getAadharCardImage());
         user.setUserImage(this.getUserImage());
@@ -65,8 +75,8 @@ public class UserInfoEntity implements Serializable {
     }
 
 
-    public static User getUser(UserInfoEntity userEntity) {
-        User user = new User();
+    public static UserInfoDetails getUser(UserDetailsEntity userEntity) {
+        UserInfoDetails user = new UserInfoDetails();
         user.setUserName(userEntity.getUserName());
         user.setEmailId(userEntity.getEmailId());
         user.setPhoneNumber(userEntity.getPhoneNumber());
@@ -75,16 +85,16 @@ public class UserInfoEntity implements Serializable {
         user.setAddress(userEntity.getAddress());
         user.setLongitude(userEntity.getLongitude());
         user.setLatitude(userEntity.getLatitude());
-        user.setDrivingLicenseNumber(userEntity.getDriverLicenseNumber());
-        user.setAadharNumber(userEntity.getAadharCardNumber());
+        user.setDrivingLicenseNumber(userEntity.getDrivingLicenseNumber());
+        user.setAadharNumber(userEntity.getAadharNumber());
         user.setDrivingLicenseImage(userEntity.getDrivingLicenseImage());
         user.setAadharCardImage(userEntity.getAadharCardImage());
         user.setUserImage(userEntity.getUserImage());
         return user;
     }
 
-    public static UserInfoEntity getUserEntity(User user) {
-        UserInfoEntity entity = new UserInfoEntity();
+    public static UserDetailsEntity getUserEntity(UserInfoDetails user) {
+        UserDetailsEntity entity = new UserDetailsEntity();
         entity.setUserName(user.getUserName());
         entity.setEmailId(user.getEmailId());
         entity.setPhoneNumber(user.getPhoneNumber());
@@ -93,8 +103,8 @@ public class UserInfoEntity implements Serializable {
         entity.setAddress(user.getAddress());
         entity.setLongitude(user.getLongitude());
         entity.setLatitude(user.getLatitude());
-        entity.setDriverLicenseNumber(user.getDrivingLicenseNumber());
-        entity.setAadharCardNumber(user.getAadharNumber());
+        entity.setDrivingLicenseNumber(user.getDrivingLicenseNumber());
+        entity.setAadharNumber(user.getAadharNumber());
         entity.setDrivingLicenseImage(user.getDrivingLicenseImage());
         entity.setAadharCardImage(user.getAadharCardImage());
         entity.setUserImage(user.getUserImage());

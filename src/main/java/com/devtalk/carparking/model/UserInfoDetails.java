@@ -4,15 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class UserInfoDetails {
     private String userName;
     private String emailId;
-    private BigDecimal phoneNumber;
+    private long phoneNumber;
     private String firstName;
     private String lastName;
     private String address;

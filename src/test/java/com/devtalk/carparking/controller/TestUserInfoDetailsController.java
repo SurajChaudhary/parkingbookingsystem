@@ -1,8 +1,8 @@
 package com.devtalk.carparking.controller;
 
-import com.devtalk.carparking.dataaccess.repository.UserDetailsRepository;
-import com.devtalk.carparking.service.UserService;
-import com.devtalk.carparking.service.impl.UserServiceImpl;
+import com.devtalk.carparking.dataaccess.repository.UserInfoDetailsRepository;
+import com.devtalk.carparking.service.UserInfoDetailsService;
+import com.devtalk.carparking.service.impl.UserInfoInfoDetailsServiceImpl;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,24 +15,24 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@WebMvcTest(UserController.class)
-public class TestUserController {
+@WebMvcTest(UserInfoDetailsController.class)
+public class TestUserInfoDetailsController {
 
     @Autowired
     private MockMvc mvc;
 
     @MockBean
-    private UserDetailsRepository userDetailsRepository;
+    private UserInfoDetailsRepository userInfoDetailsRepository;
     @InjectMocks
-    private final UserService service = new UserServiceImpl(userDetailsRepository);
+    private final UserInfoDetailsService service = new UserInfoInfoDetailsServiceImpl(userInfoDetailsRepository);
 
-    private final UserController userController = new UserController(service);
+    private final UserInfoDetailsController userInfoDetailsController = new UserInfoDetailsController(service);
 
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        mvc = MockMvcBuilders.standaloneSetup(userController).build();
+        mvc = MockMvcBuilders.standaloneSetup(userInfoDetailsController).build();
     }
 
    /* @Test
