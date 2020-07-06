@@ -2,7 +2,8 @@ package com.devtalk.carparking.model.seeddata;
 
 import lombok.Data;
 
-import java.util.*;
+import java.util.List;
+
 @Data
 public class State {
 

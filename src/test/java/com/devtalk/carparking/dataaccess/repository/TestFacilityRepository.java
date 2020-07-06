@@ -26,7 +26,7 @@ class TestFacilityRepository {
     @Test
     public void test_getFacilities_givingFacilities() throws Exception {
         // arrange
-        FacilityEntity testData = new FacilityEntity(1, "testFacility", "testAddress","longitude","latitude",new CityEntity(1,"testCity","Karnataka"));
+        FacilityEntity testData = new FacilityEntity(1, "testFacility", "testAddress", "longitude", "latitude", new CityEntity(1, "testCity", "Karnataka"));
         /*FacilityEntity facilityEntity = entityManager.merge(testData);
         entityManager.flush();*/
         facilityRepository.saveAndFlush(testData);
@@ -42,7 +42,7 @@ class TestFacilityRepository {
     @Test
     public void test_getFacilitiesByName_givingFacility() throws Exception {
         // arrange
-        FacilityEntity testData = new FacilityEntity( 1,"testFacility123", "testAddress123","longitude123","latitude123",new CityEntity(1,"testCity123","Karnataka"));
+        FacilityEntity testData = new FacilityEntity(1, "testFacility123", "testAddress123", "longitude123", "latitude123", new CityEntity(1, "testCity123", "Karnataka"));
         facilityRepository.saveAndFlush(testData);
 
         // act
@@ -56,7 +56,7 @@ class TestFacilityRepository {
     @Test
     public void test_getFacilitiesByName_notGivingFacility() throws Exception {
         // arrange
-        FacilityEntity testData = new FacilityEntity( 1,"testFacility123", "testAddress123","longitude123","latitude123",new CityEntity(1,"testCity123","Karnataka"));
+        FacilityEntity testData = new FacilityEntity(1, "testFacility123", "testAddress123", "longitude123", "latitude123", new CityEntity(1, "testCity123", "Karnataka"));
         facilityRepository.saveAndFlush(testData);
 
         // act

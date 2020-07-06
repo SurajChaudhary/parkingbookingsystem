@@ -28,13 +28,14 @@ public class StateEntity implements Serializable {
     @JoinColumn(name = "STATE_NAME", referencedColumnName = "STATE_NAME")
     private List<CityEntity> cityEntityList;
 
-    public static State getStateFromStateEntity(StateEntity stateEntity){
-        State state= new State();
+    public static State getStateFromStateEntity(StateEntity stateEntity) {
+        State state = new State();
         state.setStateName(stateEntity.getName());
         return state;
     }
-    public static StateEntity getStateEntityFromStateModel(State state){
-        StateEntity stateEntity= new StateEntity();
+
+    public static StateEntity getStateEntityFromStateModel(State state) {
+        StateEntity stateEntity = new StateEntity();
         stateEntity.setName(state.getStateName());
         return stateEntity;
     }

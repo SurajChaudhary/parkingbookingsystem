@@ -1,7 +1,5 @@
 package com.devtalk.carparking.dataaccess.repository;
 
-import com.devtalk.carparking.dataaccess.entity.CityEntity;
-import com.devtalk.carparking.dataaccess.entity.FacilityEntity;
 import com.devtalk.carparking.dataaccess.entity.StateEntity;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
@@ -13,8 +11,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest

@@ -19,9 +19,9 @@ public class SeedDataServiceImpl implements SeedDataService {
     private final StateRepository stateRepository;
 
     @Autowired
-    public SeedDataServiceImpl(CityRepository cityRepository,StateRepository stateRepository){
-        this.cityRepository=cityRepository;
-        this.stateRepository=stateRepository;
+    public SeedDataServiceImpl(CityRepository cityRepository, StateRepository stateRepository) {
+        this.cityRepository = cityRepository;
+        this.stateRepository = stateRepository;
     }
 
     @Override

@@ -21,13 +21,13 @@ public class CityEntity implements Serializable {
     private int id;
 
     @Column(name = "NAME")
-    private String  name;
+    private String name;
 
     @Column(name = "STATE_NAME")
-    private String  stateName;
+    private String stateName;
 
 
-    public static City getCityFromCityEntity(CityEntity cityEntity){
+    public static City getCityFromCityEntity(CityEntity cityEntity) {
         City city = new City();
         city.setId(cityEntity.getId());
         city.setName(cityEntity.getName());
@@ -35,7 +35,7 @@ public class CityEntity implements Serializable {
         return city;
     }
 
-    public static CityEntity getCityEntityFromCity(City city){
+    public static CityEntity getCityEntityFromCity(City city) {
         CityEntity cityEntity = new CityEntity();
         cityEntity.setName(city.getName());
         cityEntity.setStateName(city.getStateName());

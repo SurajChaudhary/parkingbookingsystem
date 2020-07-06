@@ -1,9 +1,7 @@
 package com.devtalk.carparking.controller;
 
-import com.devtalk.carparking.exception.FacilityNotFoundException;
 import com.devtalk.carparking.exception.SeedDataNotFoundException;
 import com.devtalk.carparking.model.seeddata.City;
-import com.devtalk.carparking.model.seeddata.State;
 import com.devtalk.carparking.service.SeedDataService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.http.HttpStatus;
@@ -30,7 +28,7 @@ public class SeedDataController {
     @GetMapping(value = "states", produces = "application/json")
     public ResponseEntity<List<String>> getStates() {
         List<String> states = seedDataService.getStates();
-        if(CollectionUtils.isEmpty(states))
+        if (CollectionUtils.isEmpty(states))
             throw new SeedDataNotFoundException("Unable to fetch the states data");
         return new ResponseEntity<>(states, HttpStatus.OK);
     }
@@ -44,8 +42,8 @@ public class SeedDataController {
 
     @GetMapping(value = "cities/{stateName}", produces = "application/json")
     public ResponseEntity<List<String>> getCities(@PathVariable(value = "stateName") String stateName) {
-        List<String> cities=seedDataService.getCitiesByStateName(stateName);
-        if(CollectionUtils.isEmpty(cities))
+        List<String> cities = seedDataService.getCitiesByStateName(stateName);
+        if (CollectionUtils.isEmpty(cities))
             throw new SeedDataNotFoundException("Unable to fetch the cities for given state");
         return new ResponseEntity<>(cities, HttpStatus.OK);
     }

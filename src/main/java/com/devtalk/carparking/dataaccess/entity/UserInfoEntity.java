@@ -65,7 +65,6 @@ public class UserInfoEntity implements Serializable {
     }
 
 
-
     public static User getUser(UserInfoEntity userEntity) {
         User user = new User();
         user.setUserName(userEntity.getUserName());

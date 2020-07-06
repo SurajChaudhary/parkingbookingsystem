@@ -1,8 +1,6 @@
 package com.devtalk.carparking.controller;
 
-import com.devtalk.carparking.model.Facility;
 import com.devtalk.carparking.model.seeddata.City;
-import com.devtalk.carparking.service.FacilityService;
 import com.devtalk.carparking.service.SeedDataService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
@@ -19,11 +17,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 
@@ -38,7 +34,7 @@ class SeedDataControllerTest {
     private SeedDataService seedDataService;
 
     @Test
-    void test_addStates() throws Exception{
+    void test_addStates() throws Exception {
         String url = "/v1/states";
 
         doNothing().when(seedDataService).addStates(Mockito.anyList());
@@ -50,7 +46,7 @@ class SeedDataControllerTest {
     }
 
     @Test
-    void getStates() throws Exception{
+    void getStates() throws Exception {
         String url = "/v1/states";
         List<String> states = Arrays.asList("Delhi");
         given(seedDataService.getStates()).willReturn(states);
@@ -67,7 +63,7 @@ class SeedDataControllerTest {
 
         doNothing().when(seedDataService).addCities(Mockito.anyList());
         mockMvc.perform(MockMvcRequestBuilders.post(url)
-                .content(asJsonString(Arrays.asList(new City(1,"New Delhi","Delhi"))))
+                .content(asJsonString(Arrays.asList(new City(1, "New Delhi", "Delhi"))))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
@@ -75,12 +71,12 @@ class SeedDataControllerTest {
 
 
     @Test
-    void getCities() throws Exception{
+    void getCities() throws Exception {
         String url = "/v1/cities/{stateName}";
         List<String> cities = Arrays.asList("New Delhi");
         given(seedDataService.getCitiesByStateName(Mockito.anyString())).willReturn(cities);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url,"Delhi")).andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url, "Delhi")).andReturn();
         String response = mvcResult.getResponse().getContentAsString();
         String expectedResponse = asJsonString(Arrays.asList("New Delhi"));
         Assertions.assertEquals(expectedResponse, response);

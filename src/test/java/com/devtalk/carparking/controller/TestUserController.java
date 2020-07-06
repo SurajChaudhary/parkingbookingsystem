@@ -14,8 +14,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebMvcTest(UserController.class)
 public class TestUserController {
@@ -29,7 +27,6 @@ public class TestUserController {
     private final UserService service = new UserServiceImpl(userDetailsRepository);
 
     private final UserController userController = new UserController(service);
-
 
 
     @Before

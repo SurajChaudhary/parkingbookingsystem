@@ -20,7 +20,7 @@ class CityRepositoryTest {
 
     @Test
     void findAllByStateName() {
-        CityEntity cities= new CityEntity(1,"New Delhi","Delhi");
+        CityEntity cities = new CityEntity(1, "New Delhi", "Delhi");
         cityRepository.saveAndFlush(cities);
         List<CityEntity> delhi = cityRepository.findAllByStateName("Delhi");
         Assertions.assertThat(delhi.get(0).getName()).isEqualTo(cities.getName());
