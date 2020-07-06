@@ -15,12 +15,14 @@ import java.util.stream.Collectors;
 @Service
 public class SeedDataServiceImpl implements SeedDataService {
 
-    @Autowired
-    private CityRepository cityRepository;
+    private final CityRepository cityRepository;
+    private final StateRepository stateRepository;
 
     @Autowired
-    private StateRepository stateRepository;
-
+    public SeedDataServiceImpl(CityRepository cityRepository,StateRepository stateRepository){
+        this.cityRepository=cityRepository;
+        this.stateRepository=stateRepository;
+    }
 
     @Override
     public void addStates(List<String> states) {
