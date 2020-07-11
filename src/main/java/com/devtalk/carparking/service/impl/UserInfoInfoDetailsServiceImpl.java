@@ -1,24 +1,11 @@
 package com.devtalk.carparking.service.impl;
 
-import com.devtalk.carparking.dataaccess.entity.UserDetailsEntity;
-import com.devtalk.carparking.dataaccess.repository.UserInfoDetailsRepository;
-import com.devtalk.carparking.model.UserInfoDetails;
-import com.devtalk.carparking.service.UserInfoDetailsService;
-import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-
-import static java.util.stream.Collectors.toList;
-
 @Service
-public class UserInfoInfoDetailsServiceImpl implements UserInfoDetailsService {
+public class UserInfoInfoDetailsServiceImpl {
 
-    private final UserInfoDetailsRepository userInfoDetailsRepository;
+    /*private final UserInfoDetailsRepository userInfoDetailsRepository;
 
     @Autowired
     public UserInfoInfoDetailsServiceImpl(UserInfoDetailsRepository userInfoDetailsRepository) {
@@ -83,5 +70,5 @@ public class UserInfoInfoDetailsServiceImpl implements UserInfoDetailsService {
         Optional<UserDetailsEntity> updatedUserDetailsRepositoryById = userInfoDetailsRepository.findById(userId);
         UserDetailsEntity entity = updatedUserDetailsRepositoryById.orElseThrow(() -> new Exception("No such user is found to update!!!"));
         return Optional.of(UserDetailsEntity.getUser(entity));
-    }
+    }*/
 }

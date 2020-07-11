@@ -21,14 +21,14 @@ class StateRepositoryTest {
 
     @Test
     void findAllByNameIn() {
-        StateEntity testData = new StateEntity(1l, "testStateName", new ArrayList<>());
+        StateEntity testData = new StateEntity(1,1, "testStateName", new ArrayList<>());
         stateRepository.saveAndFlush(testData);
 
         // act
         List<StateEntity> entityList = stateRepository.findAll();
 
         // assert
-        Assertions.assertThat(entityList.get(0).getName()).isEqualTo(testData.getName());
+        Assertions.assertThat(entityList.get(0).getStateName()).isEqualTo(testData.getStateName());
 
     }
 

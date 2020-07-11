@@ -10,6 +10,5 @@ import java.util.List;
 @Repository
 @Transactional
 public interface CityRepository extends JpaRepository<CityEntity, Integer> {
-
-    List<CityEntity> findAllByStateName(String stateName);
+    CityEntity findByCityName(String cityName);
 }

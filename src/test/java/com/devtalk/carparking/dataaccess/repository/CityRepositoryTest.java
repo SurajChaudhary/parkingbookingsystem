@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
-
 @RunWith(SpringRunner.class)
 @DataJpaTest
 class CityRepositoryTest {
@@ -20,10 +18,10 @@ class CityRepositoryTest {
 
     @Test
     void findAllByStateName() {
-        CityEntity cities = new CityEntity(1, "New Delhi", "Delhi");
-        cityRepository.saveAndFlush(cities);
-        List<CityEntity> delhi = cityRepository.findAllByStateName("Delhi");
-        Assertions.assertThat(delhi.get(0).getName()).isEqualTo(cities.getName());
+        CityEntity city = new CityEntity(1, 1, "New Delhi", 1);
+        cityRepository.saveAndFlush(city);
+        CityEntity delhi = cityRepository.findByCityName("New Delhi");
+        Assertions.assertThat(delhi.getCityName()).isEqualTo(city.getCityName());
     }
 
     @AfterEach

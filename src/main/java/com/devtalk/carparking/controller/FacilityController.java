@@ -7,6 +7,7 @@ import com.devtalk.carparking.service.FacilityService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class FacilityController {
     }
 
     @GetMapping("/facilities")
+    @PreAuthorize("hasAuthority('customer:read')")
     public ResponseEntity<FacilityResponse> getFacilities() {
         List<Facility> facilities = facilityService.getFacilities();
         if (CollectionUtils.isEmpty(facilities)) {

@@ -14,11 +14,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebMvcTest(UserInfoDetailsController.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
 public class TestUserInfoDetailsController {
 
-    @Autowired
+   /* @Autowired
     private MockMvc mvc;
 
     @MockBean
@@ -33,7 +32,7 @@ public class TestUserInfoDetailsController {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         mvc = MockMvcBuilders.standaloneSetup(userInfoDetailsController).build();
-    }
+    }*/
 
    /* @Test
     public void getAllUsersAPI() throws Exception {

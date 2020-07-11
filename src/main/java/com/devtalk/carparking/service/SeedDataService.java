@@ -1,17 +1,20 @@
 package com.devtalk.carparking.service;
 
+import com.devtalk.carparking.model.request.CityRequest;
+import com.devtalk.carparking.model.request.StateRequest;
 import com.devtalk.carparking.model.seeddata.City;
-import org.springframework.stereotype.Service;
+import com.devtalk.carparking.model.seeddata.State;
 
 import java.util.List;
 
-@Service
 public interface SeedDataService {
-    void addStates(List<String> states);
+    List<String> addNewStatesToSystem(List<StateRequest> states);
 
-    List<String> getStates();
+    List<State> getStates();
 
-    void addCities(List<City> cities);
+    List<String> addNewCitiesToSystem(List<CityRequest> cities);
 
-    List<String> getCitiesByStateName(String stateName);
+    City getCityDetailsByName(String cityName);
+
+    List<City> getCities();
 }

@@ -9,11 +9,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "USER_DETAILS")
+@Table(name = "USER_INFO_DETAILS")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDetailsEntity implements Serializable {
+public class UserInfoDetailsEntity implements Serializable {
 
     @Id
     @Column(name = "ID")
@@ -75,7 +75,7 @@ public class UserDetailsEntity implements Serializable {
     }
 
 
-    public static UserInfoDetails getUser(UserDetailsEntity userEntity) {
+    public static UserInfoDetails getUser(UserInfoDetailsEntity userEntity) {
         UserInfoDetails user = new UserInfoDetails();
         user.setUserName(userEntity.getUserName());
         user.setEmailId(userEntity.getEmailId());
@@ -93,8 +93,8 @@ public class UserDetailsEntity implements Serializable {
         return user;
     }
 
-    public static UserDetailsEntity getUserEntity(UserInfoDetails user) {
-        UserDetailsEntity entity = new UserDetailsEntity();
+    public static UserInfoDetailsEntity getUserEntity(UserInfoDetails user) {
+        UserInfoDetailsEntity entity = new UserInfoDetailsEntity();
         entity.setUserName(user.getUserName());
         entity.setEmailId(user.getEmailId());
         entity.setPhoneNumber(user.getPhoneNumber());

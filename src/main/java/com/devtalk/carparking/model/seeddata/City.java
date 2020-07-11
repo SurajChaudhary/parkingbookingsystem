@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class City {
-    private Integer id;
+    private long id;
     private String name;
-    private String stateName;
+    private long stateId;
 }
