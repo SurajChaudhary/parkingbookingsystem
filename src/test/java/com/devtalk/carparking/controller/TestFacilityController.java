@@ -1,5 +1,8 @@
 package com.devtalk.carparking.controller;
 
+import com.devtalk.carparking.configuration.auth.ApplicationUserService;
+import com.devtalk.carparking.configuration.jwt.JwtConfig;
+import com.devtalk.carparking.configuration.jwt.JwtSecretKey;
 import com.devtalk.carparking.exception.FacilityNotFoundException;
 import com.devtalk.carparking.model.Facility;
 import com.devtalk.carparking.service.FacilityService;
@@ -10,6 +13,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -22,20 +27,29 @@ import java.util.Objects;
 
 import static org.mockito.BDDMockito.given;
 
-/*@RunWith(SpringRunner.class)
+@RunWith(SpringRunner.class)
 @WebMvcTest(FacilityController.class)
-@Disabled*/
 public class TestFacilityController {
 
-    /*@Autowired
+    @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private  ApplicationUserService userDetailsService;
+    @MockBean
+    private  PasswordEncoder passwordEncoder;
+    @MockBean
+    private  JwtConfig jwtConfig;
+    @MockBean
+    private  JwtSecretKey jwtSecretKey;
+
 
     @MockBean
     private FacilityService facilityService;
 
 
     @Test
-    @Disabled
+    @WithMockUser(username = "admin", authorities = {"customer:read"})
     public void test_getFacilities_givingFacilities() throws Exception {
         // arrange
         String url = "/v1/facilities";
@@ -52,7 +66,7 @@ public class TestFacilityController {
     }
 
     @Test
-    @Disabled
+    @WithMockUser(username = "admin", authorities = {"customer:read"})
     public void test_getFacilities_usingMvcResult_givingFacilities() throws Exception {
         // arrange
         String url = "/v1/facilities";
@@ -69,7 +83,7 @@ public class TestFacilityController {
     }
 
     @Test
-    @Disabled
+    @WithMockUser(username = "admin", authorities = {"customer:read"})
     public void test_getFacilities_givingNotFoundException() throws Exception {
         // arrange
         String url = "/v1/facilities";
@@ -80,7 +94,7 @@ public class TestFacilityController {
 
         // assertion
         Assertions.assertEquals(FacilityNotFoundException.class, Objects.requireNonNull(mvcResult.getResolvedException()).getClass());
-    }*/
+    }
 
 
     //Todo: Need to check why @Test(expected=..) is not working
