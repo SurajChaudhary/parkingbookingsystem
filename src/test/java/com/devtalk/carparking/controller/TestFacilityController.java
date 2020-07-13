@@ -52,7 +52,7 @@ public class TestFacilityController {
     @WithMockUser(username = "admin", authorities = {"customer:read"})
     public void test_getFacilities_givingFacilities() throws Exception {
         // arrange
-        String url = "/v1/facilities";
+        String url = "/api/v1/facilities";
         List<Facility> facilities = getResponse();
         given(facilityService.getFacilities()).willReturn(facilities);
 
@@ -69,7 +69,7 @@ public class TestFacilityController {
     @WithMockUser(username = "admin", authorities = {"customer:read"})
     public void test_getFacilities_usingMvcResult_givingFacilities() throws Exception {
         // arrange
-        String url = "/v1/facilities";
+        String url = "/api/v1/facilities";
         List<Facility> facilities = getResponse();
         given(facilityService.getFacilities()).willReturn(facilities);
 
@@ -86,7 +86,7 @@ public class TestFacilityController {
     @WithMockUser(username = "admin", authorities = {"customer:read"})
     public void test_getFacilities_givingNotFoundException() throws Exception {
         // arrange
-        String url = "/v1/facilities";
+        String url = "/api/v1/facilities";
         given(facilityService.getFacilities()).willReturn(null);
 
         // act

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/admin/")
+@RequestMapping("/api/v1/")
 public class SeedDataController {
     private final SeedDataService seedDataService;
 
@@ -22,28 +22,28 @@ public class SeedDataController {
         this.seedDataService = seedDataService;
     }
 
-    @PostMapping(value = "states", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "admin/states", consumes = "application/json", produces = "application/json")
     @PreAuthorize("hasAuthority('admin:write')")
     public ResponseEntity<List<String>> addNewStatesToSystem(@RequestBody List<StateRequest> states) {
         List<String> savedStates = seedDataService.addNewStatesToSystem(states);
         return new ResponseEntity<>(savedStates, HttpStatus.CREATED);
     }
 
-    @PostMapping(value = "cities", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "admin/cities", consumes = "application/json", produces = "application/json")
     @PreAuthorize("hasAuthority('admin:write')")
     public ResponseEntity<List<String>> addCities(@RequestBody List<CityRequest> cities) {
         List<String> savedCities = seedDataService.addNewCitiesToSystem(cities);
         return new ResponseEntity<>(savedCities, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "states", produces = "application/json")
+    @GetMapping(value = "admin/states", produces = "application/json")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_ADMIN_TRAINEE')")
     public ResponseEntity<List<State>> getStates() {
         List<State> states = seedDataService.getStates();
         return new ResponseEntity<>(states, HttpStatus.OK);
     }
 
-    @GetMapping(value = "cities", produces = "application/json")
+    @GetMapping(value = "admin/cities", produces = "application/json")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_ADMIN_TRAINEE')")
     public ResponseEntity<List<City>> getCities() {
         List<City> cities = seedDataService.getCities();
@@ -51,7 +51,7 @@ public class SeedDataController {
     }
 
 
-    @GetMapping(value = "cities/{cityName}", produces = "application/json")
+    @GetMapping(value = "admin/cities/{cityName}", produces = "application/json")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_ADMIN_TRAINEE')")
     public ResponseEntity<City> getCities(@PathVariable(value = "cityName") String cityName) {
         City cityDetails = seedDataService.getCityDetailsByName(cityName);

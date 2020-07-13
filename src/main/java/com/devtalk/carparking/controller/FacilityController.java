@@ -4,6 +4,7 @@ import com.devtalk.carparking.exception.FacilityNotFoundException;
 import com.devtalk.carparking.model.Facility;
 import com.devtalk.carparking.model.response.FacilityResponse;
 import com.devtalk.carparking.service.FacilityService;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/api/v1/")
 public class FacilityController {
 
     private final FacilityService facilityService;
@@ -22,7 +23,11 @@ public class FacilityController {
         this.facilityService = facilityService;
     }
 
-    @GetMapping("/facilities")
+    @GetMapping("facilities")
+    @ApiOperation(value = "Listing all the parking facilities present in system",
+            notes = "In order to view parking facility list, user should be registered with the system",
+            response = FacilityResponse.class
+    )
     @PreAuthorize("hasAuthority('customer:read')")
     public ResponseEntity<FacilityResponse> getFacilities() {
         List<Facility> facilities = facilityService.getFacilities();
