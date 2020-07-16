@@ -1,5 +1,8 @@
 package com.devtalk.carparking.configuration.auth;
 
+import com.devtalk.carparking.dataaccess.entity.ApplicationUserEntity;
+import com.devtalk.carparking.dataaccess.repository.ApplicationUsersRepository;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
@@ -7,15 +10,19 @@ import org.springframework.stereotype.Repository;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class ApplicationUserDaoImpl implements ApplicationUserDao {
 
     private final PasswordEncoder passwordEncoder;
+    private final ApplicationUsersRepository applicationUsersRepository;
 
     @Autowired
-    public ApplicationUserDaoImpl(PasswordEncoder passwordEncoder) {
+    public ApplicationUserDaoImpl(PasswordEncoder passwordEncoder,
+                                  ApplicationUsersRepository applicationUsersRepository) {
         this.passwordEncoder = passwordEncoder;
+        this.applicationUsersRepository = applicationUsersRepository;
     }
 
     @Override
@@ -27,7 +34,18 @@ public class ApplicationUserDaoImpl implements ApplicationUserDao {
     }
 
     private List<ApplicationUser> getApplicationUsers() {
-        List<ApplicationUser> applicationUsers = Arrays.asList(
+        List<ApplicationUserEntity> applicationUserEntities = applicationUsersRepository.findAll();
+        if (CollectionUtils.isEmpty(applicationUserEntities)) {
+            return getDummyUsers();
+        }
+        return applicationUserEntities
+                .stream()
+                .map(ApplicationUser::getApplicationUser)
+                .collect(Collectors.toList());
+    }
+
+    private List<ApplicationUser> getDummyUsers() {
+        return Arrays.asList(
                 new ApplicationUser(
                         Roles.ADMIN.grantedAuthorities(),
                         "admin",
@@ -53,6 +71,5 @@ public class ApplicationUserDaoImpl implements ApplicationUserDao {
                         true,
                         true)
         );
-        return applicationUsers;
     }
 }

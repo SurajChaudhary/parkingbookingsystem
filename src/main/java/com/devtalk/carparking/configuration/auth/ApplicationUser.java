@@ -1,5 +1,6 @@
 package com.devtalk.carparking.configuration.auth;
 
+import com.devtalk.carparking.dataaccess.entity.ApplicationUserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -66,5 +67,16 @@ public class ApplicationUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return this.isEnabled;
+    }
+
+    public static ApplicationUser getApplicationUser(ApplicationUserEntity userEntity) {
+        return new ApplicationUser(
+                Roles.ADMIN.grantedAuthorities(),
+                userEntity.getUserName(),
+                userEntity.getPassword(),
+                userEntity.isAccountNonExpired(),
+                userEntity.isAccountNonLocked(),
+                userEntity.isCredentialsNonExpired(),
+                userEntity.isEnabled());
     }
 }
