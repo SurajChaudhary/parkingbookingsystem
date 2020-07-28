@@ -10,7 +10,6 @@ import com.devtalk.carparking.model.seeddata.State;
 import com.devtalk.carparking.service.SeedDataService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -26,14 +25,11 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(SeedDataController.class)
@@ -59,10 +55,10 @@ class SeedDataControllerTest {
     void test_addStates() throws Exception {
         String url = "/api/v1/admin/states";
 
-        StateRequest stateRequest= new StateRequest(1,"Delhi");
+        StateRequest stateRequest = new StateRequest(1, "Delhi", Collections.emptyList());
         given(seedDataService.addNewStatesToSystem(Arrays.asList(stateRequest))).willReturn(Arrays.asList("Delhi"));
 
-        MvcResult mvcResult=mockMvc.perform(MockMvcRequestBuilders.post(url)
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(url)
                 .content(asJsonString(Arrays.asList(stateRequest)))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -89,11 +85,11 @@ class SeedDataControllerTest {
     @WithMockUser(username = "admin", authorities = {"admin:write"})
     void test_addCities() throws Exception {
         String url = "/api/v1/admin/cities";
-        CityRequest cityRequest= new CityRequest(1,"New Delhi",1);
+        CityRequest cityRequest = new CityRequest(1, "New Delhi");
         given(seedDataService.addNewCitiesToSystem(Arrays.asList(cityRequest))).willReturn(Arrays.asList("New Delhi"));
 
-        MvcResult mvcResult=mockMvc.perform(MockMvcRequestBuilders.post(url)
-                .content(asJsonString(Collections.singletonList(new CityRequest(1, "New Delhi", 1))))
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(url)
+                .content(asJsonString(Collections.singletonList(new CityRequest(1, "New Delhi"))))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
@@ -108,12 +104,12 @@ class SeedDataControllerTest {
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     void getCities() throws Exception {
         String url = "/api/v1/admin/cities/{cityName}";
-        City city = new City(1,"New Delhi",1);
+        City city = new City(1, "New Delhi", 1);
         given(seedDataService.getCityDetailsByName(Mockito.anyString())).willReturn(city);
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url, "Delhi")).andReturn();
         String response = mvcResult.getResponse().getContentAsString();
-        String expectedResponse = asJsonString(new City(1,"New Delhi",1));
+        String expectedResponse = asJsonString(new City(1, "New Delhi", 1));
         Assertions.assertEquals(expectedResponse, response);
 
     }

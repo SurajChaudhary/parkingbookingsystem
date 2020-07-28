@@ -2,6 +2,7 @@ package com.devtalk.carparking.service;
 
 import com.devtalk.carparking.model.request.CityRequest;
 import com.devtalk.carparking.model.request.StateRequest;
+import com.devtalk.carparking.model.request.UserRoleRequest;
 import com.devtalk.carparking.model.seeddata.City;
 import com.devtalk.carparking.model.seeddata.State;
 
@@ -17,4 +18,6 @@ public interface SeedDataService {
     City getCityDetailsByName(String cityName);
 
     List<City> getCities();
+
+    List<String> addNewRolesToSystem(List<UserRoleRequest> roles);
 }

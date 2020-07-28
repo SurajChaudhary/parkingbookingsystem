@@ -2,11 +2,14 @@ package com.devtalk.carparking.service.impl;
 
 import com.devtalk.carparking.dataaccess.entity.CityEntity;
 import com.devtalk.carparking.dataaccess.entity.StateEntity;
+import com.devtalk.carparking.dataaccess.entity.UserRoleEntity;
 import com.devtalk.carparking.dataaccess.repository.CityRepository;
 import com.devtalk.carparking.dataaccess.repository.StateRepository;
+import com.devtalk.carparking.dataaccess.repository.UserRoleRepository;
 import com.devtalk.carparking.exception.SeedDataNotFoundException;
 import com.devtalk.carparking.model.request.CityRequest;
 import com.devtalk.carparking.model.request.StateRequest;
+import com.devtalk.carparking.model.request.UserRoleRequest;
 import com.devtalk.carparking.model.seeddata.City;
 import com.devtalk.carparking.model.seeddata.State;
 import com.devtalk.carparking.service.SeedDataService;
@@ -18,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,12 +30,15 @@ public class SeedDataServiceImpl implements SeedDataService {
 
     private final CityRepository cityRepository;
     private final StateRepository stateRepository;
+    private final UserRoleRepository userRoleRepository;
 
     @Autowired
     public SeedDataServiceImpl(CityRepository cityRepository,
-                               StateRepository stateRepository) {
+                               StateRepository stateRepository,
+                               UserRoleRepository userRoleRepository) {
         this.cityRepository = cityRepository;
         this.stateRepository = stateRepository;
+        this.userRoleRepository = userRoleRepository;
     }
 
     @Override
@@ -81,8 +88,8 @@ public class SeedDataServiceImpl implements SeedDataService {
     @Override
     public City getCityDetailsByName(String cityName) {
         CityEntity cityByName = cityRepository.findByCityName(cityName);
-        if(cityByName == null) {
-            throw new SeedDataNotFoundException("City '"+cityName+"' does not exist in system.");
+        if (cityByName == null) {
+            throw new SeedDataNotFoundException("City '" + cityName + "' does not exist in system.");
         }
         return CityEntity.getCityFromCityEntity(cityByName);
     }
@@ -93,5 +100,15 @@ public class SeedDataServiceImpl implements SeedDataService {
                 .stream()
                 .map(CityEntity::getCityFromCityEntity)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> addNewRolesToSystem(List<UserRoleRequest> roles) {
+        if (CollectionUtils.isEmpty(roles)) {
+            return Collections.emptyList();
+        }
+        Set<UserRoleEntity> userRoleEntities = roles.stream().map(UserRoleEntity::getEntityFromModel).collect(Collectors.toSet());
+        List<UserRoleEntity> savedEntities = userRoleRepository.saveAll(userRoleEntities);
+        return savedEntities.stream().map(UserRoleEntity::getRoleName).collect(Collectors.toList());
     }
 }

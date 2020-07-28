@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CityRequest {
-    private int cityId;
-    private String cityName;
+public class PermissionRequest {
+    private long permissionId;
+    private String permissionName;
 }

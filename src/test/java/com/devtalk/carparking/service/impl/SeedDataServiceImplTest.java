@@ -3,6 +3,7 @@ package com.devtalk.carparking.service.impl;
 import com.devtalk.carparking.dataaccess.entity.StateEntity;
 import com.devtalk.carparking.dataaccess.repository.CityRepository;
 import com.devtalk.carparking.dataaccess.repository.StateRepository;
+import com.devtalk.carparking.dataaccess.repository.UserRoleRepository;
 import com.devtalk.carparking.model.seeddata.State;
 import com.devtalk.carparking.service.SeedDataService;
 import org.junit.jupiter.api.Assertions;
@@ -26,14 +27,17 @@ class SeedDataServiceImplTest {
 
     @MockBean
     private CityRepository cityRepository;
-
+    @MockBean
+    private UserRoleRepository userRoleRepository;
     private SeedDataService seedDataService;
 
     @BeforeEach
     void setUp() {
         stateRepository = Mockito.mock(StateRepository.class);
         cityRepository = Mockito.mock(CityRepository.class);
-        seedDataService = new SeedDataServiceImpl(cityRepository, stateRepository);
+        seedDataService = new SeedDataServiceImpl(cityRepository,
+                                                    stateRepository,
+                                                    userRoleRepository);
     }
 
     @Test

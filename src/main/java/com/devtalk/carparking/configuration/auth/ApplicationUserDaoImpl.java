@@ -2,8 +2,10 @@ package com.devtalk.carparking.configuration.auth;
 
 import com.devtalk.carparking.dataaccess.entity.ApplicationUserEntity;
 import com.devtalk.carparking.dataaccess.repository.ApplicationUsersRepository;
+import com.devtalk.carparking.model.request.ApplicationUserRequest;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
@@ -31,6 +33,17 @@ public class ApplicationUserDaoImpl implements ApplicationUserDao {
                 .stream()
                 .filter(applicationUser -> userName.equalsIgnoreCase(applicationUser.getUsername()))
                 .findFirst();
+    }
+
+    @Override
+    public List<ApplicationUser> addNewUsersToSystem(List<ApplicationUserRequest> applicationUsers) {
+        List<ApplicationUserEntity> entitiesToPersist =  applicationUsers
+                                                        .stream()
+                                                        .peek(request -> request.setPassword(passwordEncoder.encode(request.getPassword())))
+                                                        .map(ApplicationUserEntity::getEntityFromRequest)
+                                                        .collect(Collectors.toList());
+        List<ApplicationUserEntity> userEntities = applicationUsersRepository.saveAll(entitiesToPersist);
+        return userEntities.stream().map(ApplicationUserEntity::getApplicationUserFromEntity).collect(Collectors.toList());
     }
 
     private List<ApplicationUser> getApplicationUsers() {

@@ -43,7 +43,6 @@ public class CityEntity implements Serializable {
         CityEntity cityEntity = new CityEntity();
         cityEntity.setCityId(city.getCityId());
         cityEntity.setCityName(city.getCityName());
-        cityEntity.setStateId(city.getStateId());
         return cityEntity;
     }
 }

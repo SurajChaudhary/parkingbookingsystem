@@ -3,6 +3,7 @@ package com.devtalk.carparking.controller;
 import com.devtalk.carparking.exception.SeedDataNotFoundException;
 import com.devtalk.carparking.model.request.CityRequest;
 import com.devtalk.carparking.model.request.StateRequest;
+import com.devtalk.carparking.model.request.UserRoleRequest;
 import com.devtalk.carparking.model.seeddata.City;
 import com.devtalk.carparking.model.seeddata.State;
 import com.devtalk.carparking.service.SeedDataService;
@@ -20,6 +21,13 @@ public class SeedDataController {
 
     public SeedDataController(SeedDataService seedDataService) {
         this.seedDataService = seedDataService;
+    }
+
+    @PostMapping(value = "admin/roles", consumes = "application/json", produces = "application/json")
+    @PreAuthorize("hasAuthority('admin:write')")
+    public ResponseEntity<List<String>> addNewRolesToSystem(@RequestBody List<UserRoleRequest> roles) {
+        List<String> savedRoles = seedDataService.addNewRolesToSystem(roles);
+        return new ResponseEntity<>(savedRoles, HttpStatus.CREATED);
     }
 
     @PostMapping(value = "admin/states", consumes = "application/json", produces = "application/json")

@@ -1,6 +1,7 @@
 package com.devtalk.carparking.configuration.auth;
 
 import com.devtalk.carparking.dataaccess.entity.ApplicationUserEntity;
+import com.devtalk.carparking.model.response.ApplicationUserResponse;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -32,6 +33,18 @@ public class ApplicationUser implements UserDetails {
         this.isAccountNonLocked = isAccountNonLocked;
         this.isCredentialsNonExpired = isCredentialsNonExpired;
         this.isEnabled = isEnabled;
+    }
+
+    public static ApplicationUserResponse getApplicationUserResponse(ApplicationUser applicationUser) {
+        return new ApplicationUserResponse(
+                applicationUser.getUsername(),
+                applicationUser.getPassword(),
+                applicationUser.isAccountNonExpired(),
+                applicationUser.isAccountNonLocked(),
+                applicationUser.isCredentialsNonExpired(),
+                applicationUser.isEnabled(),
+                applicationUser.getAuthorities()
+        );
     }
 
     @Override
@@ -71,7 +84,7 @@ public class ApplicationUser implements UserDetails {
 
     public static ApplicationUser getApplicationUser(ApplicationUserEntity userEntity) {
         return new ApplicationUser(
-                Roles.ADMIN.grantedAuthorities(),
+                ApplicationUserEntity.getGrantedAuthorities(userEntity.getUserRoles()),
                 userEntity.getUserName(),
                 userEntity.getPassword(),
                 userEntity.isAccountNonExpired(),
